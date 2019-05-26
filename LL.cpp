@@ -30,9 +30,9 @@ class LinkedList {
                         while(current != NULL){
                                 cout << current -> value;
                                 if(current -> next != NULL) {
-                                cout << " -> ";
+                                        cout << " -> ";
                                 }
-                        current = current -> next;
+                                current = current -> next;
                         }
                         cout << endl;
                 }
@@ -49,14 +49,58 @@ class LinkedList {
                         cout << "Empty List." << endl;
                 }
         }
-        void count() {
+        int count() {
                 node *current = head;
-                int count = 0;
+                int i = 0;
                 while(current != NULL) {
-                        count++;
-                        current = current -> next;
+                        i++;
+                         current = current -> next;
                 }
-                cout << "Count: " << count << "." << endl;
+                return i;
+        }
+        void insertAt(int position, int data) {
+                int j = count();
+                node *temp = new node(data);
+                node *current = head;
+                if(position < 1 || position >= j + 1) {
+                        cout << "Not possible." << endl;
+                }
+                else {
+                        if(position == 1) {
+                                insert(data);
+                        }
+                        else {
+                                int i = 1;
+                                while(i < position - 1) {
+                                        current = current -> next;
+                                        i++;
+                                }
+                                temp -> next = current -> next;
+                                current -> next = temp;
+                        }
+                }
+        }
+        void deleteAt(int position) {
+                int j = count();
+                node *current = head;
+                if(position < 1 || position >= j + 1) {
+                        cout << "Not possible." << endl;
+                }
+                else { 
+                        if(position == 1) {
+                                Delete();
+                        }
+                        else {
+                                int i = 1;
+                                while(i < position - 1) {
+                                        current = current -> next;
+                                        i++;
+                                }
+                                node *temp = current -> next;
+                                current -> next = temp -> next;
+                                delete temp;
+                        }
+                }
         }
 };
 int main() {
@@ -65,9 +109,23 @@ int main() {
         LL.insert(4);
         LL.insert(8);
         LL.display();
-        LL.count();
+        cout << LL.count() << endl;
         LL.Delete();
         LL.display();
-        LL.count();
+        cout << LL.count() << endl;
+        LL.insertAt(1, 6);
+        LL.display();
+        LL.insertAt(3, 5);
+        LL.display();
+        LL.insertAt(5, 2);
+        LL.display();
+        LL.insertAt(100, 2);
+        LL.display();
+        LL.deleteAt(5);
+        LL.display();
+        LL.deleteAt(2);
+        LL.display();
+        LL.deleteAt(-3);
+        LL.display();
         return 0;
 }

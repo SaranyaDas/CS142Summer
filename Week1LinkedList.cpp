@@ -18,12 +18,12 @@ class LinkedList {
         void insert(int value) { //function to insert node at end with given value
                 node *temp = new node(value); //pointer to new node (with given value as data and pointer to NULL by default)
                 if(head == NULL) { //case: empty list, head = end
-                        head = temp; //temp becomes head
+                        head = temp; //new node becomes head
                 }
                 else { //case: non-empty list
                         node *current = head; //temporary pointer to traverse list, starts from head
                         while(current -> next != NULL) { //as long as next node exists
-                                current = current -> next; //it becomes next node; thereby traversing list and reaching last node
+                                current = current -> next; //pointer points to next node; thereby traversing list and reaching last node
                         }
                         current -> next = temp; //(former) last node points to new (last) node
                 }
@@ -86,7 +86,7 @@ class LinkedList {
                                 if(head != NULL) { //case: non-empty list
                                         node *temp = head; //pointer to head
                                         j = temp -> data; //stores head's data
-                                        current = temp -> next; //current traverses list by one node, i.e., reaches second node
+                                        current = temp -> next; //temporary pointer traverses list by one node, i.e., reaches second node
                                         head = current; //second node becomes head
                                         delete temp; //former head deleted
                                 }

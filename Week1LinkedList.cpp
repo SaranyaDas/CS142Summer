@@ -23,7 +23,7 @@ class LinkedList {
                 else { //case: non-empty list
                         node *current = head; //temporary pointer to traverse list, starts from head
                         while(current -> next != NULL) { //as long as next node exists
-                                current = current -> next; //it becomes next node; thereby traversing list and reaching the last node
+                                current = current -> next; //it becomes next node; thereby traversing list and reaching last node
                         }
                         current -> next = temp; //(former) last node points to new (last) node
                 }
@@ -111,7 +111,7 @@ class LinkedList {
         int countItems() { //function to count number of nodes in list
                 node *current = head; //temporary pointer to traverse list, starts from head
                 int i = 0; //counter, starts from 0
-                while(current != NULL) { //till pointer points to NULL
+                while(current != NULL) { //till pointer reaches last node
                         current = current -> next; //it traverses list
                         i++; //and counter increases by 1
                 }
@@ -125,13 +125,10 @@ class LinkedList {
                 else { //case: non-empty list
                         node *current = head; //temporary pointer to traverse list, starts from head
                         while(current != NULL){ //till pointer points to NULL
-                                cout << current -> data; //displays data stored in node pointer points to currently
-                                if(current -> next != NULL) { //if pointer does not point to NULL
-                                        cout << " -> "; //i.e., no -> after last node
-					} 
-                                current = current -> next; //pointer traverses list
+                                cout << current -> data << " -> ";
+                                current = current -> next; //pointer traverses list till it reaches last node
                         }
-                        cout << endl;
+                        cout << "NULL" << endl;
                 }
         }
 };

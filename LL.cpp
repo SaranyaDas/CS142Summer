@@ -15,8 +15,7 @@ class LinkedList {
         LinkedList() {
                 head = NULL;
         }
-        //insert at head
-        void insert(int data) {
+        void insert(int data) { //insert at head
                 node *temp = new node(data);
                 temp -> next = head;
                 head = temp;
@@ -37,8 +36,7 @@ class LinkedList {
                         cout << endl;
                 }
         }
-        //delete at head
-        void Delete() {
+        void Delete() { //delete at head
                 if(head != NULL) {
                         node *temp = head;
                         node *current = temp -> next;

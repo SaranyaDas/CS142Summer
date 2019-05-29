@@ -132,7 +132,7 @@ class LinkedList {
                 }
         }
 };
-int main() {
+int main() { //driver function
         LinkedList LL;
         cout << "Created linked list." << endl;
         cout << "Count: " << LL.countItems() << endl;

@@ -68,24 +68,24 @@ class LinkedList {
 		current -> next = NULL; //secondlast node points to NULL (instead of pointing to last node)
 	}
 };
-	void compare(node *current1, node *current2) { //function to compare two linked lists
-		if(current1 != NULL && current2 != NULL) { //case: temporary pointers do not point to NULL in either list
-			if(current1 -> data != current2 -> data) { //case: unequal data in corresponding nodes
-				cout << " not identical." << endl;
-			}
-			else { //case: equal data in corresponding nodes
-				compare(current1 -> next, current2 -> next); //pointers traverse lists
-			}
+void compare(node *current1, node *current2) { //function to compare two linked lists
+	if(current1 != NULL && current2 != NULL) { //case: temporary pointers do not point to NULL in either list
+		if(current1 -> data != current2 -> data) { //case: unequal data in corresponding nodes
+			cout << " not identical." << endl;
 		}
-		if(current1 == NULL || current2 == NULL) { //case: corresponding temporary pointers point to NULL in one or both lists  
-			if(current1 == NULL && current2 == NULL) { //case: pointers point to NULL in both lists (either both empty or pointers have traversed two identical lists)
-				cout << " identical." << endl;
-			}
-			else { //case: pointer points to NULL in only one list, i.e., one list shorter than other
-				cout << " not identical." << endl;
-			}
+		else { //case: equal data in corresponding nodes
+			compare(current1 -> next, current2 -> next); //pointers traverse lists
 		}
 	}
+	if(current1 == NULL || current2 == NULL) { //case: corresponding temporary pointers point to NULL in one or both lists  
+		if(current1 == NULL && current2 == NULL) { //case: pointers point to NULL in both lists (either both empty or pointers have traversed two identical lists)
+			cout << " identical." << endl;
+		}
+		else { //case: pointer points to NULL in only one list, i.e., one list shorter than other
+			cout << " not identical." << endl;
+		}
+	}
+}
 int main() { //driver function
 	LinkedList A;
 	LinkedList B;

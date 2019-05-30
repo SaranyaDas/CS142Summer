@@ -2,10 +2,10 @@
 using namespace std;
 class node {
         public:
-        int value;
+        int data;
         node *next;
-        node(int data) {
-                value = data;
+        node(int value) {
+                data = value;
                 next = NULL;
         }
 };
@@ -15,41 +15,38 @@ class LinkedList {
         LinkedList() {
                 head = NULL;
         }
-        void insert(int data) { //insert at head
-                node *temp = new node(data);
-        	if(head == NULL) {
+        void insert(int value) { //insert at head
+                node *temp = new node(value);
+        	if(isEmpty()) {
         		head = temp;
         	}
         	else {
                 	temp -> next = head;
                 	head = temp;
                 }
-        }
-        void display() {
-                if(head == NULL) {
-                        cout << "Empty List." << endl;
+        }	
+        void Delete() { //delete at head
+                if(isEmpty()) {
+                        cout << "Nothing to delete. Empty List." << endl;
                 }
                 else {
-                        node *current = head;
-                        while(current != NULL){
-                                cout << current -> value;
-                                if(current -> next != NULL) {
-                                        cout << " -> ";
-                                }
-                                current = current -> next;
-                        }
-                        cout << endl;
-                }
-        }
-        void Delete() { //delete at head
-                if(head != NULL) {
                         node *temp = head;
                         node *current = temp -> next;
                         head = current;
                         delete temp;
                 }
+        }
+        void display() {
+                if(isEmpty()) {
+                        cout << "Empty List." << endl;
+                }
                 else {
-                        cout << "Nothing to delete. Empty List." << endl;
+                        node *current = head;
+                        while(current != NULL){
+                                cout << current -> data << " -> ";
+                                current = current -> next;
+                        }
+                        cout << "NULL" << endl;
                 }
         }
         int count() {
@@ -61,32 +58,79 @@ class LinkedList {
                 }
                 return i;
         }
-        void insertAt(int position, int data) {
-                int j = count();
-                node *temp = new node(data);
-                node *current = head;
-                if(position < 1 || position >= j + 1) {
+        bool isEmpty() {
+        	if(head == NULL) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+        node *reversedisplay(node *current) { //function to display nodes in list in reverse
+        	if(current == NULL) {
+        		return current;
+        	}
+        	reversedisplay(current -> next);
+        	cout << current -> data << " -> ";
+        }
+        void *reverse() {
+        	reversedisplay(head);
+        	cout << "NULL" << endl;
+        }
+        void rotate(int k) { //function to rotate list counter-clockwise by k nodes
+        	node *current = head; //temporary pointer to traverse list
+        	int i = 1;
+        	if(k >= 1 && k < count()) {
+        		while(i < k) {
+				current = current -> next;
+				i++;
+			} //current at kth node now
+			node *temp1 = current; //points to kth node
+			node *temp2 = current -> next; //points to (k+1)th node
+        		while(current -> next != NULL) {
+				current = current -> next;
+			} //current at last node now
+        		temp1 -> next = NULL; //kth node points to NULL, becomes last node
+			current -> next = head; //(former) last node points to head
+			head = temp2; //(k+1)th node becomes head
+		}
+		else {
+			cout << "Not possible. " << endl;
+		}
+	}
+	node *getpos(int pos) {
+		node *current = head;
+		int i = 1;
+		if(pos < 1 || pos > count()) {
+			return NULL;
+		}
+		else { 
+			while(i < pos) {
+				current = current -> next;
+				i++;
+			}
+			return current;
+		}
+	}
+        void insertAt(int position, int value) {
+                node *temp = new node(value);
+                if(position < 1 || position > count() + 1) {
                         cout << "Not possible." << endl;
                 }
                 else {
                         if(position == 1) {
-                                insert(data);
+                                insert(value);
                         }
                         else {
-                                int i = 1;
-                                while(i < position - 1) {
-                                        current = current -> next;
-                                        i++;
-                                }
+                                node *current = getpos(position - 1);
                                 temp -> next = current -> next;
                                 current -> next = temp;
                         }
                 }
         }
         void deleteAt(int position) {
-                int j = count();
                 node *current = head;
-                if(position < 1 || position >= j + 1) {
+                if(position < 1 || position >= count() + 1) {
                         cout << "Not possible." << endl;
                 }
                 else { 
@@ -108,27 +152,52 @@ class LinkedList {
 };
 int main() {
         LinkedList LL;
+        LL.display();
+        cout << "Rotate counter-clockwise by 1 node: ";
+        LL.rotate(1);
+        cout << "Insert at head: ";
         LL.insert(6);
+   	LL.display();
+   	cout << "Rotate counter-clockwise by 1 node: ";
+   	LL.rotate(1);
+   	cout << "Insert at head: ";
         LL.insert(4);
         LL.insert(8);
         LL.display();
-        cout << LL.count() << endl;
-        LL.Delete();
+        cout << "Count: " << LL.count() << endl;
+        cout << "Delete at 1: ";
+        LL.deleteAt(1);
         LL.display();
-        cout << LL.count() << endl;
-        LL.insertAt(1, 6);
+        cout << "Count: " << LL.count() << endl;
+        cout << "Insert at 1: ";
+        LL.insertAt(1, 7);
         LL.display();
+        cout << "Insert at 3: ";
         LL.insertAt(3, 5);
         LL.display();
+        cout << "Insert at 5: ";
         LL.insertAt(5, 2);
         LL.display();
+        cout << "Insert at 100: ";
         LL.insertAt(100, 2);
         LL.display();
+        cout << "Delete at 5: ";
         LL.deleteAt(5);
         LL.display();
+        cout << "Delete at 2: ";
         LL.deleteAt(2);
         LL.display();
+        cout << "Delete at -3: ";
         LL.deleteAt(-3);
+        LL.display();
+        cout << "Reverse: ";
+        LL.reverse();
+        for(int i = 0; i < 10; i++) {
+        	LL.insert(i);
+        }
+        LL.display();
+        cout << "Rotate counter-clockwise by 6 nodes: ";
+        LL.rotate(6);
         LL.display();
         return 0;
 }

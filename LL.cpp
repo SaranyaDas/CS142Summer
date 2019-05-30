@@ -54,7 +54,7 @@ class LinkedList {
                 int i = 0;
                 while(current != NULL) {
                         i++;
-                         current = current -> next;
+                        current = current -> next;
                 }
                 return i;
         }
@@ -64,6 +64,20 @@ class LinkedList {
 		}
 		else {
 			return false;
+		}
+	}
+	node *getpos(int pos) {
+		node *current = head;
+		int i = 1;
+		if(pos < 1 || pos > count()) {
+			return NULL;
+		}
+		else { 
+			while(i < pos) {
+				current = current -> next;
+				i++;
+			}
+			return current;
 		}
 	}
         node *reversedisplay(node *current) { //function to display nodes in list in reverse
@@ -96,20 +110,6 @@ class LinkedList {
 		}
 		else {
 			cout << "Not possible. " << endl;
-		}
-	}
-	node *getpos(int pos) {
-		node *current = head;
-		int i = 1;
-		if(pos < 1 || pos > count()) {
-			return NULL;
-		}
-		else { 
-			while(i < pos) {
-				current = current -> next;
-				i++;
-			}
-			return current;
 		}
 	}
         void insertAt(int position, int value) {

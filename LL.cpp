@@ -17,9 +17,14 @@ class LinkedList {
         }
         void insert(int data) { //insert at head
                 node *temp = new node(data);
-                temp -> next = head;
-                head = temp;
+        	if(head == NULL) {
+        		head = temp;
+        	}
+        	else {
+                	temp -> next = head;
+                	head = temp;
                 }
+        }
         void display() {
                 if(head == NULL) {
                         cout << "Empty List." << endl;
@@ -44,7 +49,7 @@ class LinkedList {
                         delete temp;
                 }
                 else {
-                        cout << "Empty List." << endl;
+                        cout << "Nothing to delete. Empty List." << endl;
                 }
         }
         int count() {

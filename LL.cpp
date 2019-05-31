@@ -118,7 +118,7 @@ class LinkedList {
                         cout << "Not possible." << endl;
                 }
                 else {
-                        if(position == 1) {
+                        if(position = 1) {
                                 insert(value);
                         }
                         else {
@@ -134,7 +134,7 @@ class LinkedList {
                         cout << "Not possible." << endl;
                 }
                 else { 
-                        if(position == 1) {
+                        if(position = 1) {
                                 Delete();
                         }
                         else {

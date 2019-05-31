@@ -46,13 +46,19 @@ class LinkedList {
                                 }
                         }
                         else { //new node to be inserted between head and end or at end
-                                int i = 1; //counter; positioning in list starts with 1
-                                while(i < position - 1) { //till counter becomes position's preceding number
-                                        i++; //counter increases by 1
-                                        current = current -> next; //temporary pointer traverses list till it reaches node preceding node at position
+                                if(position == countItems() + 1) { //new node to be inserted at end
+                                	insert(value);
+                                	return;
                                 }
-                                temp -> next = current -> next; //new node points to pre-existing node at position
-                                current -> next = temp; //node before node at given position points to new node; new node inserted at given position
+                                else { //new node to be inserted between head and end
+                                	int i = 1; //counter; positioning in list starts with 1
+                               		while(i < position - 1) { //till counter becomes position's preceding number
+                                	        i++; //counter increases by 1
+                                        	current = current -> next; //temporary pointer traverses list till it reaches node preceding node at position
+                                	}
+                                	temp -> next = current -> next; //new node points to pre-existing node at position
+                                	current -> next = temp; //node before node at given position points to new node; new node inserted at given position
+                                }
                         }
                         cout << "Inserted node with data " << value << " at position " << position << " in list." << endl;
                 }
@@ -99,16 +105,22 @@ class LinkedList {
                                         cout << "Empty List." << endl;
                                 }
                         }
-                        else {
-                                int i = 1; //counter, positioning in list starts with 1
-                                while(i < position - 1) { //till counter becomes position's preceding number
-                                	i++; //counter increases by 1
-                                        current = current -> next; //temporary pointer traverses list till it points to node before node at given position
-                                }
-                                node *temp = current -> next; //pointer to node at given position
-                                j = temp -> data; //stores node-to-be-deleted's data
-                                current -> next = temp -> next; //node before node at given position points to node after node at given position
-                                delete temp; //node at given position deleted
+                        else { //node between head and end or at end to be deleted
+                        	if(position == countItems()) { //last node to be deleted
+                        		Delete();
+                        		return;
+                        	}
+                                else { //node between head and end to be deleted
+                                	int i = 1; //counter, positioning in list starts with 1
+                                	while(i < position - 1) { //till counter becomes position's preceding number
+                                		i++; //counter increases by 1
+                                        	current = current -> next; //temporary pointer traverses list till it points to node before node at given position
+                                	}
+                                	node *temp = current -> next; //pointer to node at given position
+                                	j = temp -> data; //stores node-to-be-deleted's data
+                                	current -> next = temp -> next; //node before node at given position points to node after node at given position
+                                	delete temp; //node at given position deleted
+                        	}
                         }
                		cout << "Deleted node at position " << position << " with data " << j << "." << endl;
                 }
@@ -166,6 +178,8 @@ int main() { //driver function
         LL.deleteAt(1);
         LL.display();
         LL.deleteAt(-222);
+        LL.display();
+        LL.deleteAt(2);
         LL.display();
         cout << "Count: " << LL.countItems() << endl;
         return 0;

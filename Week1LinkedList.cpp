@@ -67,7 +67,7 @@ class LinkedList {
         	int j; //variable to store data of node to be deleted
                 if(head != NULL) { //case: non-emtpy list
                         node *current = head; //temporary pointer to traverse list, starts from head
-                	if(current -> next == NULL) { //case: single node in list
+                	if(head -> next == NULL) { //case: single node in list
                 		j = head -> data; //stores node-to-be-deleted's data
                 		head = NULL; //list becomes empty
                 	}

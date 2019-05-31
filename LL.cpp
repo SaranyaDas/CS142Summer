@@ -26,15 +26,19 @@ class LinkedList {
                 }
         }	
         void Delete() { //delete at head
+        	node *temp = head;
                 if(isEmpty()) {
                         cout << "Nothing to delete. Empty List." << endl;
                 }
                 else {
-                        node *temp = head;
-                        node *current = temp -> next;
-                        head = current;
-                        delete temp;
-                }
+                	if(head -> next == NULL) {
+                		head = NULL;
+                	}
+                        else {
+	                	head = temp -> next;
+                   	        delete temp;
+               		}
+               	}
         }
         void display() {
                 if(isEmpty()) {
@@ -118,7 +122,7 @@ class LinkedList {
                         cout << "Not possible." << endl;
                 }
                 else {
-                        if(position = 1) {
+                        if(position == 1) {
                                 insert(value);
                         }
                         else {
@@ -134,7 +138,7 @@ class LinkedList {
                         cout << "Not possible." << endl;
                 }
                 else { 
-                        if(position = 1) {
+                        if(position == 1) {
                                 Delete();
                         }
                         else {

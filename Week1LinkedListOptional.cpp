@@ -50,7 +50,7 @@ class LinkedList {
 				}
 				else { //case: consecutive nodes store equal data
 					node *temp = current -> next; //another temporary pointer points to duplicate node
-					current -> next = current -> next -> next; //current node now points to node after duplicate node
+					current -> next = temp -> next; //current node now points to node after duplicate node
 					delete temp; //deletes duplicate node
 				}
 				removeduplicates(current -> next); //repeats to check for more duplicate nodes

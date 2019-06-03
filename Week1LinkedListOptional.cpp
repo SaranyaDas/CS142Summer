@@ -38,35 +38,31 @@ class LinkedList {
 			cout << "NULL" << endl;
 		}
 	}
-	node *removeduplicates(node *current) { //function to delete duplicate-value nodes from sorted linked list
-		if(current == NULL || current -> next == NULL) { //cases: empty list or single node
-			return current;
-		}
-		else { //case: non-empty list
-			while(current -> next != NULL) { //as long as pointer does not point to NULL
-				if(current -> data != current -> next -> data) { //case: consecutive nodes store uneuqal data
-					current = current -> next; //pointer traverses list
-				}
-				else { //case: consecutive nodes store equal data
-					node *temp = current -> next; //another temporary pointer points to duplicate node
-					current -> next = temp -> next; //current node now points to node after duplicate node
-					delete temp; //deletes duplicate node
-				}
-			}		
-		}
+	void removeduplicates(node *current) { //function to delete duplicate-value nodes from sorted linked list
+		while(current -> next != NULL) { //as long as pointer does not point to NULL
+			if(current -> data != current -> next -> data) { //case: consecutive nodes store uneuqal data
+				current = current -> next; //pointer traverses list
+			}
+			else { //case: consecutive nodes store equal data
+				node *temp = current -> next; //another temporary pointer points to duplicate node
+				current -> next = temp -> next; //current node now points to node after duplicate node
+				delete temp; //deletes duplicate node
+			}
+		}		
 	}
 	void *duplicates() { //dummy function
 		removeduplicates(head);
 	}	
-	node *reverselist(node *current) { //function to reverse a linked list 
-		if(current == NULL || current -> next == NULL) { //i.e., till original current (temporary pointer) points to secondlast node and (original) current -> next = last node AT FIRST
-			head = current; //last node becomes head, head points to NULL now
-			return current; //returns last node (current -> next) AT FIRST
+	void reverselist(node *current) { //function to reverse a linked list 
+		node *temp1 = NULL;
+		node *temp2;
+		while(current != NULL) { //loop stops after last node points to secondlast node
+			temp2 = current -> next; //pointer to (currently) next node for later use
+			current -> next = temp1; //current node now points to previous node instead (head points to NULL since temp1 = NULL at first)
+			temp1 = current; //pointer to current node for later use
+			current = temp2; //pointer traverses list
 		}
-		reverselist(current -> next); //recursion; repeats till first node (now last) points to NULL (instead of pointing to second node)
-		node *temp = current -> next; //current points to secondlast node which points to last node (now head), temp points to last node
-		temp -> next = current; //last node (now head) points to secondlast node now (instead of pointing to NULL)
-		current -> next = NULL; //secondlast node points to NULL (instead of pointing to last node)
+		head = temp1; //last node becomes head
 	}
 	void reverse() { //dummy function
 		reverselist(head);

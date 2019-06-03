@@ -166,19 +166,17 @@ class linkedlist { //LINKED LIST
 		revdis(head);
 		cout << "NULL" << endl;
 	}
-	node *rev(node *current) { //12. REVERSE
-		if(empty()) {
-			return NULL;
-		}
-		else { 
-			if(current -> next == NULL) {
-				head = current;
-				return current;
+	void rev(node *current) { //12. REVERSE
+		if(!empty()) {
+			node *temp1 = NULL;
+			node *temp2;
+			while(current != NULL) {
+				temp2 = current -> next;
+				current -> next = temp1;
+				temp1 = current;
+				current = temp2;
 			}
-			rev(current -> next);
-			node *temp = current -> next;
-			temp -> next = current;
-			current -> next = NULL;
+			head = temp1;
 		}
 	}
 	void reverse() { //12.5

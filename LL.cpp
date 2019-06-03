@@ -71,12 +71,12 @@ class LinkedList {
 		}
 	}
 	node *getpos(int pos) {
-		node *current = head;
-		int i = 1;
 		if(pos < 1 || pos > count()) {
 			return NULL;
 		}
 		else { 
+		        node *current = head;
+		        int i = 1;
 			while(i < pos) {
 				current = current -> next;
 				i++;
@@ -205,3 +205,4 @@ int main() {
         LL.display();
         return 0;
 }
+

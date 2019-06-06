@@ -129,75 +129,104 @@ class linkedlist {
                 }
 	}
 };
-class stack {
+class StackLL {
 	public:
 	node *top;
 	linkedlist L1;
-	stack() {
+	StackLL() {
 	        top = NULL;
 	}
-	void push(int value){
+	void push(int value) {
 		L1.insertathead(value);
 		top = L1.head;
 	}
 	void pop() {
-		if(L1.count() == 0) {
-			cout << "nothing to pop" << endl;
+		if(empty()) {
+			cout << "stack underflow, nothing to pop" << endl;
 		}
 		else {
 			L1.deleteathead();
+			top = L1.head;
 		}
 	}
-	void display() {
-		L1.display();
+	int size() {
+		return L1.count();
 	}
-	void size() {
-		cout << "size of stack: " << L1.count() << endl;
-	}
-	bool isEmpty() {
+	bool empty() {
 		if(L1.empty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	void isEmpty() {
+		if(empty()) {
 			cout << "empty" << endl;
 		}
 		else {
-			cout << "not empty" << endl;
+			cout << "non-empty" << endl;
 		}
 	}
+	void display() {
+		if(empty()) {
+			cout << "empty stack" << endl;
+		}
+		else {
+			L1.display();
+		}
+	}
+	
 };
-class queue {
+class QueueLL {
 	public:
         node *front;
         node *end;
         linkedlist L2;
-        queue() {
+        QueueLL() {
         	front = NULL;
         	end = NULL;
         }
         void enqueue(int value) {
         	L2.insertathead(value);
         	front = L2.head;
+        	end = L2.gettail();
         }
         void dequeue() {
-        	if(L2.count() == 0) {
-        		cout << "nothing to dequeue" << endl;
+        	if(empty()) {
+        		cout << "queue underflow, nothing to dequeue" << endl;
         	}
         	else { 
         		L2.deleteatend();
         		end = L2.gettail();
         	}
         }
-        void size() {
-        	cout << "size of queue: " << L2.count() << endl;
+        int size() {
+        	return L2.count();
         }
-        void isEmpty() {
+        bool empty() {
         	if(L2.empty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+        }
+	void isEmpty() {
+		if(empty()) {
 			cout << "empty" << endl;
 		}
 		else {
-			cout << "not empty" << endl;
+			cout << "non-empty" << endl;
 		}
-        }
+	}
         void display() {
-        	L2.display();
+        	if(empty()) {
+        		cout << "empty queue" << endl;
+        	}
+        	else {
+	        	L2.display();
+        	}
         }
 };
 int main() {
@@ -223,7 +252,7 @@ int main() {
 	S.display();
 	cout << "stack: ";
 	S.isEmpty();
-	S.size();
+	cout << "size: " << S.size() << endl;
 	queue Q;
 	cout << "queue: ";
 	Q.isEmpty();
@@ -232,7 +261,7 @@ int main() {
 	Q.enqueue(574);
 	Q.enqueue(669);
 	Q.display();
-	Q.size();
+	cout << "size: " << Q.size() << endl;
 	Q.dequeue();
 	Q.display();
 	return 0;

@@ -38,7 +38,7 @@ class linkedlist {
 		}
         }
         node *gettail() {
-        	if(head == NULL) {
+        	if(empty()) {
         		return NULL;
         	}
                 else {
@@ -132,36 +132,36 @@ class linkedlist {
 //1.1. Stacks using Linked List (Name for class: StackLL) (push, pop, size, isEmpty, top)*/
 class StackLL {
 	public:
-	node *top;
-	linkedlist L1;
-	StackLL() {
+	node *top; //pointer to top of stack
+	linkedlist L1; //linked list
+	StackLL() { //default constructor
 	        top = NULL;
 	}
-	void push(int value) {
-		L1.insertathead(value);
-		top = L1.head;
+	void push(int value) { //push function
+		L1.insertathead(value); //new element of stack = new head of linked list
+		top = L1.head; //head becomes top of stack
 	}
-	void pop() {
+	void pop() { //pop function
 		if(empty()) {
 			cout << "stack underflow, nothing to pop" << endl;
 		}
 		else {
-			L1.deleteathead();
-			top = L1.head;
+			L1.deleteathead(); //deletes head of linked list
+			top = L1.head; //new head (former second node) becomes top
 		}
 	}
-	int size() {
-		return L1.count();
+	int size() { //size function
+		return L1.count(); //size of stack = size of linked list
 	}
 	bool empty() {
-		if(L1.empty()) {
+		if(L1.empty()) { //empty stack = empty linked list
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	void isEmpty() {
+	void isEmpty() { //isEmpty function
 		if(empty()) {
 			cout << "empty" << endl;
 		}
@@ -179,31 +179,31 @@ class StackLL {
 	}
 	
 };
-//1.2. Queues using Linked List (Name for class: QueueLL) (enqueue, dequeue, size, isEmpty, top)
+//1.2. Queues using Linked List (Name for class: QueueLL) (enqueue, dequeue, size, isEmpty, front, end)
 class QueueLL {
 	public:
-        node *front;
-        node *end;
-        linkedlist L2;
-        QueueLL() {
+        node *front; //pointer to front of queue
+        node *end; //pointer to end queue
+        linkedlist L2; //linked list
+        QueueLL() {//default constructor
         	front = NULL;
         	end = NULL;
         }
-        void enqueue(int value) {
-        	L2.insertathead(value);
-        	front = L2.head;
-        	end = L2.gettail();
+        void enqueue(int value) { //enqueue function
+        	L2.insertathead(value); //new element of queue = new head of linked list
+        	front = L2.head; //head becomes front of queue
+        	end = L2.gettail(); //tail (last node) of linked list becomes end of queue
         }
-        void dequeue() {
+        void dequeue() { //dequeue function
         	if(empty()) {
         		cout << "queue underflow, nothing to dequeue" << endl;
         	}
         	else { 
-        		L2.deleteatend();
-        		end = L2.gettail();
+        		L2.deleteatend(); //deletes tail of linked list
+        		end = L2.gettail(); //new tail becomes end of queue
         	}
         }
-        int size() {
+        int size() { //size function
         	return L2.count();
         }
         bool empty() {
@@ -214,7 +214,7 @@ class QueueLL {
 			return false;
 		}
         }
-	void isEmpty() {
+	void isEmpty() { //isEmpty function
 		if(empty()) {
 			cout << "empty" << endl;
 		}
@@ -234,29 +234,29 @@ class QueueLL {
 //1.3. Stacks using Arrays (Name for class: StackArr)
 class StackArr {
 	public:
-	int top, array[10];
+	int top, array[10]; //top and array (max size: 10)
 	StackArr() {
-		top = -1;
+		top = -1; //counting starts at -1, array indexing starts from 0
 	}
-	void push(int value) {
-		if(top == 9) {
+	void push(int value) { //push function
+		if(top == 9) { //if array is full
 			cout << "stack overflow" << endl;
 		}
 		else {
-			++top;
-			array[top] = value;
+			++top; //top increases by 1 (-1 -> 0 at first)
+			array[top] = value; //value is stored in array at index corresponding to top's value
 		}	
 	}
-	void pop() {
+	void pop() { //pop function
 		if(empty()) {
 			cout << "stack underflow" << endl;
 		}
 		else {
-			--top;
+			--top; //top decreases by 1, value at old top gets replaced when new element is pushed into the stack
 		}
 	}
-	int size() {
-		return top + 1;
+	int size() { //size function
+		return top + 1; //because indexing starts from 0
 	}
 	bool empty() {
 		if(top == -1) {
@@ -266,7 +266,7 @@ class StackArr {
 			return false;
 		}
 	}
-	void isEmpty() {
+	void isEmpty() { //isEmpty  function
 		if(empty()) {
 			cout << "empty" << endl;
 		}
@@ -289,34 +289,34 @@ class StackArr {
 //1.4. Queues using Arrays (Name for class: QueueArr)
 class QueueArr {
 	public:
-	int front, end, array[10];
+	int front, end, array[10]; //front, end and array (max size: 10)
 	QueueArr() {
-		front = -1;
+		front = -1; //counting starts from -1, array indexing starts from 0
 	}
-	void enqueue(int value) {
-		if(front == 9) {
+	void enqueue(int value) { //enqueue function
+		if(front == 9) { //if array is full
 			cout << "queue overflow" << endl;
 		}
 		else {
-			++front;
-			array[front] = value;
+			++front; //front increases by 1 (-1 -> 0 at first)
+			array[front] = value; //value is stored in array at index corresponding to front's value
 		}
 	}
-	void dequeue() {
+	void dequeue() { //dequeue function
 		if(empty()) {
 			cout << "queue underflow" << endl;
 		}
 		else {
-			int i = 0;
-			while(i < front) {
-				array[i] = array[i + 1];
-				i++;
+			int i = 0; //since indexing starts from 0
+			while(i < front) { //as long as i < front's value
+				array[i] = array[i + 1]; //values stored in the array "shift" to left, value at index 0 gets replaced by value at index 1 and so on as loop continues
+				i++; //i increases by 1
 			}
-			--front;
+			--front; //front decreases by 1, after value at index (front - 1) is replaced by value at front, value at old front is replaced when new element is enqueued
 		}
 	}	
-	int size() {
-		return front + 1;
+	int size() { //size function
+		return front + 1; //since indexing starts from 0
 	}
 	bool empty() {
 		if(front == -1) {
@@ -326,7 +326,7 @@ class QueueArr {
 			return false;
 		}
 	}
-	void isEmpty() {
+	void isEmpty() { //isEmpty function
 		if(empty()) {
 			cout << "empty" << endl;
 		}
@@ -349,25 +349,25 @@ class QueueArr {
 //2. Implement a queue using two stacks.
 class QueueS {
 	public:
-	StackLL S1, S2;
-	void enqueue(int value) {
-		S1.push(value);
+	StackLL S1, S2; //stacks
+	void enqueue(int value) { //enqueue function
+		S1.push(value); //new value becomes top of S1 (newest element or front of queue)
 	}
-	void dequeue() {
-		if(S1.empty() && S2.empty()) {
+	void dequeue() { //dequeue function
+		if(S1.empty() && S2.empty()) { //if both stacks (and hence, queue) are empty
 			cout << "queue underflow, nothing to dequeue" << endl;
 			return;
 		}
 		if(!S1.empty()) {
-			while(!S1.empty()) {
-				S2.push(S1.top -> data);
-				S1.pop();
-			}
-			S2.pop();
-			while(!S2.empty()) {
-				S1.push(S2.top -> data);
-				S2.pop();
-			}
+			while(!S1.empty()) { //till S1 is empty
+				S2.push(S1.top -> data); //top of S1 becomes top of S2
+				S1.pop(); //deletes top of S1
+			} //top of S2 = oldest element of S1 (and hence, end of queue)
+			S2.pop(); //deletes top of S2 (oldest element or end of queue)
+			while(!S2.empty()) { //till S2 is empty
+				S1.push(S2.top -> data); //top of S2 becomes top of S1
+				S2.pop(); //deletes top of S2
+			} //all elements are transferred back to S1
 		}
 	}
 	void isEmpty() {
@@ -383,25 +383,25 @@ class QueueS {
 //3. Implement a Stack using Queue(s).
 class StackQ {
 	public:
-	QueueLL Q1, Q2;
-	void push(int value) {
-		Q1.enqueue(value);
+	QueueLL Q1, Q2; //queues
+	void push(int value) { //push function
+		Q1.enqueue(value); //new value becomes front of Q1 (newest element or top of stack)
 	}
-	void pop() {
-		if(Q1.empty() && Q2.empty()) {
+	void pop() { //pop function
+		if(Q1.empty() && Q2.empty()) { //if both queues (and hence, stack) are empty
 			cout << "stack underflow, nothing to pop" << endl;
 			return;
 		}
 		if(!Q1.empty()) {
-			while(Q1.size() != 1) {
-				Q2.enqueue(Q1.end -> data);
-				Q1.dequeue();
+			while(Q1.size() != 1) { //till Q1 has one element left, i.e., front (newest element)
+				Q2.enqueue(Q1.end -> data); //end of Q1 becomes front of Q2
+				Q1.dequeue(); //deletes end of Q1
 			}
-			Q1.dequeue();
-			while(!Q2.empty()) {
-				Q1.enqueue(Q2.end -> data);
-				Q2.dequeue();
-			}
+			Q1.dequeue(); //deletes front of Q1 (newest element or top of stack)
+			while(!Q2.empty()) { //till Q2 is empty
+				Q1.enqueue(Q2.end -> data); //end of Q2 becomes front of Q1
+				Q2.dequeue(); //deletes end of Q2
+			} //all elements are transferred back to Q1
 		}
 	}
 	void isEmpty() {

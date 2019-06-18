@@ -195,9 +195,9 @@ class SinglyLinkedList { //LINKED LIST
 			current -> next = NULL;
 		}
 	}
-	node *duplicates(node *current) { //14. REMOVEDUPLICATES
+	void duplicates(node *current) { //14. REMOVEDUPLICATES
 		if(empty() || current -> next == NULL) {
-			return current;
+			return;
 		}
 		else {
 			while(current -> next != NULL) {
@@ -214,6 +214,27 @@ class SinglyLinkedList { //LINKED LIST
 	}
 	void removeduplicates() { //14.5
 		duplicates(head);
+	}
+	void duplicatesunsorted(node *current) {
+		node *temp1, *temp2, *temp;
+		temp1 = current;
+		while(temp1 != NULL && temp1 -> next != NULL) {
+			temp2 = temp1;
+			while(temp2 -> next != NULL) {
+				if(temp1 -> data == temp2 -> next -> data) {
+					temp = temp2 -> next;
+					temp2 -> next = temp2 -> next -> next;
+					delete temp;
+				}
+				else {
+					temp2 = temp2 -> next;
+				}	
+			}
+			temp1 = temp1 -> next;
+		}
+	}
+	void removeduplicatesunsorted() {
+		duplicatesunsorted(head);
 	}
 };
 node *compare(node *current1, node *current2) { //15
@@ -288,5 +309,10 @@ int main() { //MAIN
 	EU.reverse();
 	EU.display();
 	comparelists(EU, SLL);
+	EU.insertat(999, 3);
+	EU.insertend(999);
+	EU.display();
+	EU.removeduplicatesunsorted();
+	EU.display();
 	return 0;
 }

@@ -201,6 +201,7 @@ class QueueLL {
         	else { 
         		L2.deleteatend(); //deletes tail of linked list
         		end = L2.gettail(); //new tail becomes end of queue
+        		front = L2.head; //in case linked list becomes empty
         	}
         }
         int size() { //size function

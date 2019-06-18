@@ -10,10 +10,10 @@ class node { //NODE
 		next = NULL;
 	}
 };
-class linkedlist { //LINKED LIST
+class SinglyLinkedList { //LINKED LIST
 	public:
 	node *head;
-	linkedlist() {
+	SinglyLinkedList() {
 		head = NULL;
 	}
 	bool empty() { //1. EMPTY
@@ -234,11 +234,11 @@ node *compare(node *current1, node *current2) { //15
 		}
 	}
 }
-void comparelists(linkedlist x, linkedlist y) { //15.5
+void comparelists(SinglyLinkedList x, SinglyLinkedList y) { //15.5
 	compare(x.head, y.head);
 }
 int main() { //MAIN
-	linkedlist LL;
+	SinglyLinkedList LL;
 	LL.deletehead();
 	LL.display();
 	LL.reversedisplay();
@@ -282,7 +282,7 @@ int main() { //MAIN
 	LL.display();
 	LL.removeduplicates();
 	LL.display();
-	linkedlist EU = LL;
+	SinglyLinkedList EU = LL;
 	EU.display();
 	comparelists(EU, LL);
 	EU.reverse();

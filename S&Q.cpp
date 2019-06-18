@@ -265,4 +265,4 @@ int main() {
 	Q.dequeue();
 	Q.display();
 	return 0;
-} 
+}

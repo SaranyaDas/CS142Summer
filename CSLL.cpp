@@ -39,19 +39,10 @@ class CircularSinglyLinkedList {
 				tail = NULL;
 			}
 			else {
-				node *temp1 = head;
-				if(count() == 2) {
-					node *temp2 = tail;
-					int i = tail -> data;
-					delete temp1;
-					delete temp2;
-					inserthead(i);
-				}
-				else {
-					head = temp1 -> next;
-					tail -> next = head;
-					delete temp1;
-				}
+				node *temp = head;
+				head = temp -> next;
+				tail -> next = head;
+				delete temp;
 			}
 		}
 	}
@@ -158,10 +149,46 @@ class CircularSinglyLinkedList {
 				current = current -> next;
 			}
 			if(head -> next != NULL) {	
-				cout << current -> data << " -> ";
+				cout << current -> data;
 			}
 		}
-		cout << "NULL" << endl;
+		cout << endl;
+	}
+	void rev(node *current) {
+		if(head != NULL) {
+			node *temp1 = NULL;
+			node *temp2;
+			while(current != NULL) {
+				temp2 = current -> next;
+				current -> next = temp1;
+				temp1 = current;
+				current = temp2;
+			}
+			node *temp = head;
+			head = temp1 -> next;
+			tail = temp;
+			
+		}
+	}
+	void reverse() { 
+		rev(head);
+	}
+	void revdis(node *current) {
+		if(current -> next != head) {
+			revdis(current -> next);
+			cout << current -> data;
+			if(current != head) {
+				cout << " -> ";
+			}
+		}
+		else {	
+			cout << current -> data << " -> ";
+			return;
+		}
+	}
+	void reversedisplay() {
+		revdis(head);
+		cout << endl;
 	}
 };
 int main() {
@@ -184,5 +211,8 @@ int main() {
 	cout << "Count: " << CSLL.count() << endl;
 	CSLL.deleteat(6);
 	CSLL.display();
+	CSLL.reverse();
+	CSLL.display();
+	CSLL.reversedisplay();
 	return 0;
 }		

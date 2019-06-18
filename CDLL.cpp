@@ -42,20 +42,11 @@ class CircularDoublyLinkedList {
 				tail = NULL;
 			}
 			else {
-				node *temp1 = head;
-				if(count() == 2) {
-					node *temp2 = tail;
-					int i = tail -> data;
-					delete temp1;
-					delete temp2;
-					inserthead(i);
-				}
-				else {
-					head = temp1 -> next;
-					tail -> next = head;
-					head -> prev = tail;
-					delete temp1;
-				}
+				node *temp = head;
+				head = temp -> next;
+				tail -> next = head;
+				head -> prev = tail;
+				delete temp;
 			}
 		}
 	}
@@ -168,10 +159,42 @@ class CircularDoublyLinkedList {
 				current = current -> next;
 			}
 			if(head -> next != NULL) {	
-				cout << current -> data << " -> ";
+				cout << current -> data;
 			}
 		}
-		cout << "NULL" << endl;
+		cout << endl;
+	}
+	void rev(node *current) {
+		if(head != NULL) {
+			node *temp1 = NULL;
+			node *temp2;
+			while(current -> next != NULL) {
+				temp2 = current -> next;
+				current -> next = temp1;
+				current -> prev = temp2;
+				temp1 = current;
+				current = temp2;
+			}
+			current -> next = tail;
+			node *temp = head;
+			head = temp1;
+			tail = temp;
+		}
+	}
+	void reverse() { 
+		rev(head);
+	}
+	void revdis(node *current) {
+		while(current != head) {
+			cout << current -> data << " -> ";
+			current = current -> prev;
+		}
+		if(head -> next != NULL) {
+			cout << current -> data << endl;
+		}
+	}
+	void reversedisplay() {
+		revdis(tail);
 	}
 };
 int main() {
@@ -194,5 +217,8 @@ int main() {
 	cout << "Count: " << CDLL.count() << endl;
 	CDLL.deleteat(6);
 	CDLL.display();
+	CDLL.reverse();
+	CDLL.display();
+	CDLL.reversedisplay();
 	return 0;
 }

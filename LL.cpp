@@ -71,12 +71,12 @@ class LinkedList {
 		}
 	}
 	node *getpos(int pos) {
+		node *current = head;
+		int i = 1;
 		if(pos < 1 || pos > count()) {
 			return NULL;
 		}
 		else { 
-		        node *current = head;
-		        int i = 1;
 			while(i < pos) {
 				current = current -> next;
 				i++;
@@ -84,14 +84,14 @@ class LinkedList {
 			return current;
 		}
 	}
-        void reversedisplay(node *current) { //function to display nodes in list in reverse
+        node *reversedisplay(node *current) { //function to display nodes in list in reverse
         	if(current == NULL) {
-        		return;
+        		return current;
         	}
         	reversedisplay(current -> next);
         	cout << current -> data << " -> ";
         }
-        void reverse() {
+        void *reverse() {
         	reversedisplay(head);
         	cout << "NULL" << endl;
         }
@@ -159,13 +159,9 @@ int main() {
         LL.display();
         cout << "Rotate counter-clockwise by 1 node: ";
         LL.rotate(1);
-        cout << "Reverse: ";
-        LL.reverse();
         cout << "Insert at head: ";
         LL.insert(6);
    	LL.display();
-        cout << "Reverse: ";
-        LL.reverse();
    	cout << "Rotate counter-clockwise by 1 node: ";
    	LL.rotate(1);
    	cout << "Insert at head: ";
@@ -208,4 +204,4 @@ int main() {
         LL.rotate(6);
         LL.display();
         return 0;
-}	
+}

@@ -293,6 +293,7 @@ class QueueArr {
 	int front, end, array[10]; //front, end and array (max size: 10)
 	QueueArr() {
 		front = -1; //counting starts from -1, array indexing starts from 0
+		end = 0;
 	}
 	void enqueue(int value) { //enqueue function
 		if(front == 9) { //if array is full

@@ -1,4 +1,4 @@
-/*classes: node and linked list, functions: empty, getpos, count, inserthead, insertend, insertat, deletehead, deleteend, deleteat, display, reverse display, reverse, rotate, removeduplicates, compare, main*/
+/*classes: node and linked list, functions: empty, getpos, count, inserthead, insertend, insertat, deletehead, deleteend, deleteat, display, reverse display, reverse, rotate, removeduplicates, removeduplicatesunsorted compare, main*/
 #include <iostream>
 using namespace std;
 class node { //NODE
@@ -215,7 +215,7 @@ class SinglyLinkedList { //LINKED LIST
 	void removeduplicates() { //14.5
 		duplicates(head);
 	}
-	void duplicatesunsorted(node *current) {
+	void duplicatesunsorted(node *current) { //15. REMOVEDUPLICATESUNSORTED
 		node *temp1, *temp2, *temp;
 		temp1 = current;
 		while(temp1 != NULL && temp1 -> next != NULL) {
@@ -233,11 +233,11 @@ class SinglyLinkedList { //LINKED LIST
 			temp1 = temp1 -> next;
 		}
 	}
-	void removeduplicatesunsorted() {
+	void removeduplicatesunsorted() { //15.5
 		duplicatesunsorted(head);
 	}
 };
-node *compare(node *current1, node *current2) { //15
+node *compare(node *current1, node *current2) { //16
 	if(current1 == NULL || current2 == NULL) {
 		if(current1 == NULL && current2 == NULL) {
 			cout << "ye" << endl;

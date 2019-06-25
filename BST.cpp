@@ -91,8 +91,7 @@ class BinarySearchTree {
 		if(temp == NULL) {
 			return NULL;
 		}
-		//case 1: no children
-		if(temp -> left == NULL && temp -> right == NULL) {
+		if(temp -> left == NULL && temp -> right == NULL) { //case 1: no children
 			if(temp == root) {
 				root = NULL;
 			}
@@ -107,17 +106,15 @@ class BinarySearchTree {
 			}
 		}
 		else {
-			//case 3: two children
 			node *child;
-			if(temp -> left != NULL && temp -> right != NULL) {
+			if(temp -> left != NULL && temp -> right != NULL) { //case 2: two children
 				child = find_min(temp -> right);
 				int i = child -> data;
 				Delete(root, child -> data);
 				temp -> data = i;
 			}
-			//case 2: one child
 			else {
-				if(temp -> left != NULL) {
+				if(temp -> left != NULL) { //case 3: one child
 					child = temp -> left;
 				}
 				else {

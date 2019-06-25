@@ -45,7 +45,7 @@ class BinarySearchTree {
 	void insert(int value) {
 		Insert(root, value);
 	}
-	void Display(node *current) {
+	void Display(node *current) { //in-order display
 		if(current == NULL) {
 			return;
 		}

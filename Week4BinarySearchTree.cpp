@@ -17,7 +17,7 @@ class BinarySearchTree {
 	BinarySearchTree() {
 		root = NULL;
 	}
-	void Insert(node *current, int value) {
+	void Insert(node *current, int value) { //1. Insert
 		node *temp = new node(value);
 		if(root == NULL) {
 			root = temp;
@@ -45,37 +45,6 @@ class BinarySearchTree {
 	void insert(int value) {
 		Insert(root, value);
 	}
-	void Display(node *current) { //in-order display
-		if(current == NULL) {
-			return;
-		}
-		Display(current -> left);
-		cout << current -> data << " ";
-		Display(current -> right);
-	}
-	void display() {
-		Display(root);
-		cout << endl;
-	}
-	node *Search(node *current, int value) {
-		if(current == NULL) {
-			cout << "Value not found. " << endl;
-			return NULL;
-		}
-		if(current -> data == value) {
-			cout << "Value found. " << endl;
-			return current;
-		}
-		if(value < current -> data) {
-			Search(current -> left, value);
-		}
-		else {
-			Search(current -> right, value);
-		}
-	}
-	void search(int value) {
-		Search(root, value);
-	}
 	node *find_min(node *root) {
 		node *current = root;
 		while(current -> left != NULL) {
@@ -83,7 +52,7 @@ class BinarySearchTree {
 		}
 		return current;
 	}
-	node *Delete(node *current, int value) {
+	node *Delete(node *current, int value) { //2. Delete
 		if(current == NULL) {
 			return NULL;
 		}
@@ -138,23 +107,85 @@ class BinarySearchTree {
 	void delet(int value) {
 		Delete(root, value);
 	}
+	void inDisplay(node *current) { //3. Display (in-order)
+		if(current == NULL) {
+				return;
+			}
+		inDisplay(current -> left);
+		cout << current -> data << " ";
+		inDisplay(current -> right);
+	}
+	void indisplay() {
+		inDisplay(root);
+		cout << endl;
+	}
+	void preDisplay(node *current) { //3. Display (pre-order)
+		if(current == NULL) {
+			return;
+		}
+		cout << current -> data << " ";
+		preDisplay(current -> left);
+		preDisplay(current -> right);
+	}
+	void predisplay() {
+		preDisplay(root);
+		cout << endl;
+	}
+	void postDisplay(node *current) { //3. Display (post-order)
+		if(current == NULL) {
+			return;
+		}
+		postDisplay(current -> left);
+		postDisplay(current -> right);
+		cout << current -> data << " ";
+	}
+	void postdisplay() {
+		postDisplay(root);
+		cout << endl;
+	}
+	node *Search(node *current, int value) { //4. Search
+		if(current == NULL) {
+			cout << "Value not found. " << endl;
+			return NULL;
+		}
+		if(current -> data == value) {
+			cout << "Value found. " << endl;
+			return current;
+		}
+		if(value < current -> data) {
+			Search(current -> left, value);
+		}
+		else {
+			Search(current -> right, value);
+		}
+	}
+	void search(int value) {
+		Search(root, value);
+	}
+	int count() { //5. Count
+	}
+	int height() { //6. Height
+	}
 };
 int main() {
 	BinarySearchTree BST;
 	BST.insert(32);
 	BST.insert(4);
+	BST.insert(8);
+	BST.insert(48);
 	BST.insert(463);
 	BST.insert(7);
 	BST.insert(34);
-	BST.display();
+	BST.insert(100);
+	BST.indisplay();
 	cout << "Search for 4: ";
 	BST.search(4);
 	cout << "Delete 4: ";
 	BST.delet(4);
-	BST.display();
+	BST.indisplay();
 	cout << "Delete 9: ";
 	BST.delet(9);
-	BST.display();
+	BST.indisplay();
 	BST.predisplay();
 	BST.postdisplay();
 	return 0;

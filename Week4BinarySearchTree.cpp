@@ -166,6 +166,65 @@ class BinarySearchTree {
 	}
 	int height() { //6. Height
 	}
+	void print2DUtil(node *root, int space)
+
+{
+
+// Base case
+
+if (root == NULL)
+
+return;
+
+// Increase distance between levels
+
+space += 5;
+
+// Process right child first
+
+print2DUtil(root->right, space);
+
+
+
+// Print current node after space
+
+// count
+
+cout<<endl;
+
+for (int i = 5; i < space; i++)
+
+cout<<" ";
+
+cout<<root->data<<"\n";
+
+
+
+// Process left child
+
+print2DUtil(root->left, space);
+
+}
+
+
+
+// Wrapper over print2DUtil()
+
+void print2D()
+
+{
+
+cout << "******************************" << endl;
+
+// Pass initial space count as 0
+
+print2DUtil(root, 0);
+
+cout << "******************************" << endl;
+
+
+
+}
 };
 int main() {
 	BinarySearchTree BST;
@@ -188,5 +247,6 @@ int main() {
 	BST.indisplay();
 	BST.predisplay();
 	BST.postdisplay();
+	BST.print2D();
 	return 0;
 }

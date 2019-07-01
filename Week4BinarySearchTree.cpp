@@ -189,18 +189,18 @@ class BinarySearchTree {
 	void height() { //height helper
 		cout << "Height: " << Height(root) << endl;
 	}
-	void print2DUtil(node *current, int space) { //function to display tree in 2D view 
+	void print2DUtil(node *current, int spaces) { //function to display tree in 2D view 
 		if(current == NULL) { //base case
 			return; //also when the tree is empty
 		}
-		space += 5; //increases distance between levels
-		print2DUtil(current -> right, space); //processes right child first
+		spaces += 5; //increases distance between levels
+		print2DUtil(current -> right, spaces); //processes right child first
 		cout << endl;
-		for(int i = 5; i < space; i++) { 
+		for(int i = 5; i < spaces; i++) { 
 			cout << " ";
 		}
 		cout << current -> data << endl; //displays current node's data
-		print2DUtil(current -> left, space); //processes left child
+		print2DUtil(current -> left, spaces); //processes left child
 	}
 	void print2D() { // Wrapper over print2DUtil()
 		cout << "2D display: " << endl;

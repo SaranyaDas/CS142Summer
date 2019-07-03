@@ -33,7 +33,7 @@ class DoublyLinkedList {
 	}
 	void deletehead() {
 		if(head == NULL) {
-			cout << "Not possible" << endl;
+			cout << "Not possible." << endl;
 		}
 		else {
 			if(head -> next == NULL) {
@@ -72,7 +72,7 @@ class DoublyLinkedList {
 	}
 	void insertat(int value, int pos) {
 		if(pos < 1 || pos > count() + 1) {
-			cout << "Not possible" << endl;
+			cout << "Not possible." << endl;
 		}
 		else {
 			if(pos == 1) {
@@ -101,7 +101,7 @@ class DoublyLinkedList {
 	}
 	void deleteat(int pos) {
 		if(pos < 1 || pos > count()) {
-			cout << "Not possible" << endl;
+			cout << "Not possible." << endl;
 		}
 		else {
 			if(pos == 1) {

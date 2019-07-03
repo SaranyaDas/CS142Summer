@@ -31,7 +31,7 @@ class CircularSinglyLinkedList {
 	}
 	void deletehead() {
 		if(head == NULL) {
-			cout << "Not possible" << endl;
+			cout << "Not possible." << endl;
 		}
 		else {
 			if(head -> next == NULL) {
@@ -74,7 +74,7 @@ class CircularSinglyLinkedList {
 	}
 	void insertat(int value, int pos) {
 		if(pos < 1 || pos > count() + 1) {
-			cout << "Not possible" << endl;
+			cout << "Not possible." << endl;
 		}
 		else {
 			if(pos == 1) {

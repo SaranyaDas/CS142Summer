@@ -51,8 +51,7 @@ class BinaryHeap {
 			cout << "Heap underflow. " << endl;
 		}
 		if(size == 1) {
-			size--;
-			return array[0];
+			return array[--size];
 		}
 		if(size > 1) {
 			int root = array[0];
@@ -90,8 +89,7 @@ class BinaryHeap {
 			cout << "Nothing to delete here." << endl;
 			return;
 		}
-		array[i] = array[size - 1];
-		size--;
+		array[i] = array[--size];
 		MinHeapify(i);
 	}
 };

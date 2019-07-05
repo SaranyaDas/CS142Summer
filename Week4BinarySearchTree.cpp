@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 class node {
 	public:
@@ -45,19 +46,18 @@ class BinarySearchTree {
 	void insert(int value) { //insert helper
 		Insert(root, value);
 	}
-	node *find_min(node *root) { //function to find node with minimum data
-		node *current = root; //current: temporary pointer to traverse tree starting from root node
+	node *find_min(node *current) { //function to find node with largest data smaller than current node's data, current: temporary pointer to traverse tree
 		while(current -> left != NULL) { //as long as current node has left child
 			current = current -> left; //current node's left child becomes current
 		}
 		return current;
 	}
-	node *Delete(node *current, int value) { //2. Delete, current: temporary pointer to traverse tree
-		if(current == NULL) { //case 1: empty tree
+	node *Delete(int value) { //2. Delete, current: temporary pointer to traverse tree
+		if(root == NULL) { //case 1: empty tree
 		        cout << "Empty tree. Nothing to delete." << endl;
 			return NULL;
 		}
-		node *temp = Search(current, value); //temp: node with given value to be deleted
+		node *temp = search(value); //temp: node with given value to be deleted
 		if(temp == NULL) { //case 2: node with given value does not exist
 			return NULL;
 		}
@@ -65,23 +65,23 @@ class BinarySearchTree {
 			if(temp == root) { //case 3.1: node to be deleted is root node
 				root = NULL;
 			}
-			else { //case 3.2: node to be deleted is intermediate or leaf node
+			else { //case 3.2: node to be deleted is leaf node
 				if(temp -> parent -> left = temp) { //case: 3.2.1: temp is its parent's left child
 					temp -> parent -> left = NULL;
 				}
 				else { //case: 3.2.2: temp is its parent's right child
 					temp -> parent -> right = NULL;
 				}
-				delete temp;
 			}
+			delete temp;
 		}
 		else { //case 4: node to be deleted has at least one child
 			node *child; //pointer to child node
 			if(temp -> left != NULL && temp -> right != NULL) { //case 4.1: node to be deleted has two children
 				child = find_min(temp -> right); //node with minimum data (only slightly bigger than temp node's) in temp's right subtree becomes child
-				int i = child -> data; //temporary variable to store child node's data
-				Delete(root, child -> data); //deletes child node (case 1)
-				temp -> data = i; //i becomes temp's new data
+				temp -> data = child -> data; //child node's data becomes temp's data
+				child -> parent -> left = NULL;
+				delete child;
 			}
 			else { //case 4.2: node to be deleted has one child
 				if(temp -> left != NULL) { //case 4.2.1: node to be deleted has only left child
@@ -93,20 +93,17 @@ class BinarySearchTree {
 				if(temp == root) { //case 4.2.a: node to be deleted is root node
 					root = child; //child becomes new root
 				}
-				else { //case 4.2.b: node to be deleted is intermediate or leaf node
-					if(temp -> parent -> left = current) { //case 4.2.b.1: temp is its parent's left child
+				else { //case 4.2.b: node to be deleted is intermediate
+					if(temp -> parent -> left = temp) { //case 4.2.b.1: temp is its parent's left child
 						temp -> parent -> left = child; //temp's child becomes temp's parent's new left child
 					}
 					else { //case 4.2.b.2: temp is its parent's right child
 						temp -> parent -> right = child; //temp's child becomes temp's parent's new right child
 					}
 				}
-				delete temp; //deletes temp
+				delete temp;
 			}
 		}
-	}
-	void delet(int value) { //delete helper
-		Delete(root, value);
 	}
 	void inDisplay(node *current) { //3. Display (in-order), current: temporary pointer to traverse tree
 		if(current == NULL) { //recursion's exit condition
@@ -160,8 +157,8 @@ class BinarySearchTree {
 			Search(current -> right, value); //current node's right child becomes current and search continues
 		}
 	}
-	void search(int value) { //search helper
-		Search(root, value);
+	node *search(int value) { //search helper
+		return Search(root, value);
 	}
 	int Count(node *current) { //5. Count, current: temporary pointer to traverse tree
 		if(current == NULL) { //recursion's exit condition
@@ -171,14 +168,6 @@ class BinarySearchTree {
 	}
 	void count() { //count helper
 		cout << "Count: " << Count(root) << endl;
-	}
-	int max(int i, int j) { //function to find maxmimum between two integers
-		if(i > j) {
-			return i;
-		}
-		else {
-			return j;
-		}
 	}
 	int Height(node *current) { //6. Height, current: temporary pointer to traverse tree
 	        if(current == NULL) { //recursion's exit condition
@@ -226,13 +215,16 @@ int main() {
 	cout << "Search for 4: ";
 	BST.search(4);
 	cout << "Delete 4: ";
-	BST.delet(4);
+	BST.Delete(4);
 	BST.indisplay();
 	cout << "Delete 9: ";
-	BST.delet(9);
+	BST.Delete(9);
 	BST.indisplay();
 	BST.predisplay();
 	BST.postdisplay();
+	BST.print2D();
+	cout << "Delete 32: ";
+	BST.Delete(32);
 	BST.print2D();
 	return 0;
 }

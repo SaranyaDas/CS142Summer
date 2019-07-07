@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 class MinHeap {
 	public:
@@ -40,6 +41,13 @@ class MinHeap {
 			cout << array[i] << " ";
 		}
 		cout << endl;
+	}
+	int findmax() {
+		int Max = array[size/2];
+		for(int i = size/2 + 1; i < size; i++) {
+			Max = max(Max, array[i]);
+		}
+		return Max;
 	}
 	int getMin() {
 		return array[0];
@@ -134,6 +142,13 @@ class MaxHeap {
 		}
 		cout << endl;
 	}
+	int findmin() {
+		int Min = array[size/2];
+		for(int i = size/2 + 1; i < size; i++) {
+			Min = min(Min, array[i]);
+		}
+		return Min;
+	}
 	int getMax() {
 		return array[0];
 	}
@@ -185,6 +200,70 @@ class MaxHeap {
 		
 	}
 };
+bool ArrayMaxHeap(int array[], int i, int size) {
+	for(int i = (size/2 - 1); i >= 0; i--) {
+		if(array[i] < array[2*i + 1]) {
+			return false;
+		}
+		if(2*i + 2 < size) {
+			if(array[i] < array[2*i + 2]) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+void isMaxHeap(int array[], int size) {
+	cout << "The given array ";
+	if(ArrayMaxHeap(array, 0, size)) {
+		cout << "represents ";
+	}
+	else {
+		cout << "does not represent ";
+	}
+	cout << "a max heap." << endl;
+}
+bool ArrayMinHeap(int array[], int i, int size) {
+	for(int i = (size/2 - 1); i >= 0; i--) {
+		if(array[i] > array[2*i + 1]) {
+			return false;
+		}
+		if(2*i + 2 < size) {
+			if(array[i] > array[2*i + 2]) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+void isMinHeap(int array[], int size) {
+	cout << "The given array ";
+	if(ArrayMinHeap(array, 0, size)) {
+		cout << "represents ";
+	}
+	else {
+		cout << "does not represent ";
+	}
+	cout << "a min heap." << endl;
+}
+void Heap(int array[], int size) {
+	if(!ArrayMinHeap(array, 0, size) && !ArrayMaxHeap(array, 0, size)) {
+		cout << "The given array does not represent a heap." << endl;
+	}
+	else {
+		isMinHeap(array, size);
+		isMaxHeap(array, size);
+	}
+}
+void Display(int array[], int size) {
+	for(int i = 0; i < size ; i++) {
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+int height(int size) {
+	return ceil(log2(size + 1));
+}
 int main() {
 	MinHeap Min(19);
 	Min.extractMin();
@@ -198,6 +277,9 @@ int main() {
     	Min.display();
     	Min.decreaseKey(4, 4);
     	Min.display();
+    	Min.insert(2);
+    	Min.display();
+    	cout << "Max: " << Min.findmax() << endl;
     	MaxHeap Max(19);
 	Max.extractMax();
 	for(int i = 10; i > 0; i--) {
@@ -210,5 +292,20 @@ int main() {
     	Max.display();
     	Max.increaseKey(4, 4);
     	Max.display();
+    	Max.insert(9);
+    	Max.display();
+    	cout << "Min: " << Max.findmin() << endl;
+	int size;
+	cout << "Enter size of array: ";
+	cin >> size;
+	int array[size];
+	cout << "Enter the elements one by one:" << endl;
+	for(int i = 0; i < size; i++) {
+		cin >> array[i];
+	}
+	cout << "Array: ";
+	Display(array, size);
+	Heap(array, size);
+	cout << "Height: " << height(size) << endl;
 	return 0;
 }

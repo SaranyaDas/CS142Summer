@@ -176,6 +176,189 @@ class BinarySearchTree {
 	void height() {
 		cout << "Height: " << Height(root) << endl;
 	}
+	void levelorder() {
+		for(int i = 1; i <= Height(root); i++) {
+        		leveldisplay(root, i);
+        	}
+        	cout << endl;
+	}
+	void leveldisplay(node *current, int level) {  
+    		if(!current) { 
+		        return;  
+		}
+    		if(level == 1) { 
+        		cout << current -> data << " ";
+        	}  
+    		else {
+    			if(level > 1) {  
+        			leveldisplay(current -> left, level - 1);  
+        			leveldisplay(current -> right, level - 1);  
+    			}  
+    		}
+	}  
+	int RangeCount(node *current, int low, int high) {
+		if(!current) {
+			return 0;
+		}
+		if(current -> data <= high && current -> data >= low) {
+			return 1 + RangeCount(current -> left, low, high) + RangeCount(current -> right, low, high);
+		}
+		else {
+			if(current -> data < low) {
+				return RangeCount(current -> right, low, high);
+			}
+			else {
+				return RangeCount(current -> left, low, high);
+			}
+		}
+	}
+	void rangecount(int low, int high) {
+		cout << "Count of nodes in range (" << low << ", " << high << "): ";
+		if(low <= high) {
+			cout << RangeCount(root, low, high) << endl;
+		}
+		else {
+			cout << RangeCount(root, high, low) << endl;
+		}
+	}
+	void PrintRange(node *current, int low, int high) {
+		if(current == NULL) {
+			return;
+		}
+		if(current -> data > low) {
+			PrintRange(current -> left, low, high);
+		}
+		if(current -> data >= low && current -> data <= high) {
+			cout << current -> data << " ";
+		}
+		if(current -> data < high) {
+			PrintRange(current -> right, low, high);
+		}
+	}
+	void printrange(int low, int high) {
+		cout << "Nodes in range (" << low << ", " << high << "): ";
+		if(low <= high) {
+			PrintRange(root, low, high);
+		}
+		else {
+			PrintRange(root, high, low);
+		}
+		cout << endl;
+	}
+	node *RemoveInsideRange(node *current, int low, int high) {
+		if(!current) {
+			return NULL;
+		}
+		current -> left = RemoveInsideRange(current -> left, low, high);
+		current -> right = RemoveInsideRange(current -> right, low, high);
+		if(current -> data >= low && current -> data <= high) { 
+       			delete current;
+       			return NULL;
+       		}
+		return current;
+	}
+	void removeinsiderange(int low, int high) {
+		if(low <= high) {
+			RemoveInsideRange(root, low, high);
+		}
+		else {
+			RemoveInsideRange(root, high, low);
+		}
+	}
+	node *RemoveOutsideRange(node *current, int low, int high) {
+		if(!current) {
+			return NULL;
+		}
+		current -> left = RemoveOutsideRange(current -> left, low, high);
+		current -> right = RemoveOutsideRange(current -> right, low, high);
+		if(current -> data < low) { 
+       			node *child = current -> right;
+       			delete current;
+       			return child;
+       		}
+       		if(current -> data > high) {
+       			node *child = current -> left;
+       			delete current;
+       			return child;
+       		}
+		return current;
+	}
+	void removeoutsiderange(int low, int high) {
+		if(low <= high) {
+			RemoveOutsideRange(root, low, high);
+		}
+		else {
+			RemoveOutsideRange(root, high, low);
+		}
+	}
+	node *deleteleaves(node *current) {
+		if(!current) {
+			return NULL;
+		}
+		if(!(current -> left) && !(current -> right)) {
+			delete current;
+			return NULL;
+		}
+		current -> left = deleteleaves(current -> left);
+		current -> right = deleteleaves(current -> right);
+		return current;
+	}
+	void deleteleaf() {
+		deleteleaves(root);
+	}
+	int RootDistance(node *current, int value) {
+		if(!current) {
+			return 0;
+		}
+		else {
+			if(current -> data > value) {
+				return 1 + RootDistance(current -> left, value);
+			}
+			else {
+				return 1 + RootDistance(current -> right, value);
+			}
+		}
+	}
+	void rootdistance(int value) {
+		cout << "Distance of " << value << " from root: " << RootDistance(root, value) << endl;
+	}
+	int NodeDistance(node *current, int a, int b) {
+		if(!current) {
+			return 0;
+		}
+		if(current -> data > a && current -> data > b){
+			return NodeDistance(current -> left, a, b);
+		}
+		if(current -> data < a && current -> data < b) {
+			return NodeDistance(root -> right, a, b);
+		}
+		if(current -> data >= a && current -> data <= b) {
+			return RootDistance(current, a) + RootDistance(current, b);
+		}
+	}
+	void nodedistance(int a, int b) {
+		cout << "Distance between " << a << " and " << b << ": " << NodeDistance(root, a, b) << endl;
+	}
+	bool CountSubtrees(node *current, int low, int high, int countS) {
+		if(!current) {
+			return true;
+		}
+		bool left = CountSubtrees(current -> left, low, high, countS);
+		bool right = CountSubtrees(current -> right, low, high, countS);
+		if(left && right && current -> data >= low && current -> data <= high) {
+			++countS;
+			return true;
+		}
+		return false;
+	}
+	int countsubtrees(int low, int high) {
+		int countS = 0;
+		CountSubtrees(root, low, high, countS);
+		return countS;
+	}
+	void subtrees(int low, int high) {
+		cout << "Number of subtrees between " << low << " and " << high << ": " << countsubtrees(low, high) << endl;
+	}
 	void print2DUtil(node *current, int spaces) {
 		if(current == NULL) {
 			return;
@@ -195,65 +378,6 @@ class BinarySearchTree {
 		print2DUtil(root, 0);
 		cout << endl;
 		cout << "---------------------------" << endl;
-	}
-	bool complete(node *current, int i, int count) {
-		if(current == NULL) {
-			return true;
-		}
-		if(i >= count) {
-			return false;
-		}
-		return complete(current -> left, 2*i + 1, count) && complete(current -> right, 2*2 + 2, count);
-	}
-	bool maxheap(node *current) {
-		if(!(current -> left) && !(current -> right)) {
-			return true;
-		}
-		if(!(current -> right)) {
-			return (current -> data >= current -> left -> data);
-		}
-		else {
-			if(current -> data >= current -> left -> data && current -> data >= current -> right -> data) {
-				return maxheap(current -> left) && maxheap(current -> right);
-			}
-			else {
-				return false;
-			}
-		}
-	}
-	bool minheap(node *current) {
-		if(!(current -> left) && !(current -> right)) {
-			return true;
-		}
-		if(!(current -> right)) {
-			return (current -> data <= current -> left -> data);
-		}
-		else {
-			if(current -> data <= current -> left -> data && current -> data <= current -> right -> data) {
-				return minheap(current -> left) && minheap(current -> right);
-			}
-			else {
-				return false;
-			}
-		}
-	}
-	void Heap() {
-		int count = Count(root);
-		if(root == NULL || complete(root, 0, count) && maxheap(root) || complete(root, 0, count) && minheap(root)) {
-			cout << "The tree is a heap." << endl;
-			if(root == NULL) {
-				return;
-			}
-			if(minheap(root)) {
-				cout << "The tree is a min heap." << endl;
-			}
-			if(maxheap(root)) {
-				cout << "The tree is a max heap." << endl;
-			}
-		}
-		else {
-			cout << "The tree is not a heap." << endl;
-		}
 	}
 };
 int main() {
@@ -280,8 +404,17 @@ int main() {
 	BST.predisplay();
 	BST.postdisplay();
 	BST.print2D();
+	BST.levelorder();
 	cout << "Delete 32: ";
 	BST.Delete(32);
+	BST.print2D();
+	BST.rangecount(234, 34);
+	BST.printrange(500, 34);
+	BST.removeinsiderange(1, 7);
+	BST.print2D();
+	BST.deleteleaf();
+	BST.print2D();
+	BST.removeoutsiderange(30, 100);
 	BST.print2D();
 	BST.Heap();
 	BinarySearchTree Tree1;

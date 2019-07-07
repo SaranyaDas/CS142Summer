@@ -200,61 +200,6 @@ class MaxHeap {
 		
 	}
 };
-bool ArrayMaxHeap(int array[], int i, int size) {
-	for(int i = (size/2 - 1); i >= 0; i--) {
-		if(array[i] < array[2*i + 1]) {
-			return false;
-		}
-		if(2*i + 2 < size) {
-			if(array[i] < array[2*i + 2]) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-void isMaxHeap(int array[], int size) {
-	cout << "The given array ";
-	if(ArrayMaxHeap(array, 0, size)) {
-		cout << "represents ";
-	}
-	else {
-		cout << "does not represent ";
-	}
-	cout << "a max heap." << endl;
-}
-bool ArrayMinHeap(int array[], int i, int size) {
-	for(int i = (size/2 - 1); i >= 0; i--) {
-		if(array[i] > array[2*i + 1]) {
-			return false;
-		}
-		if(2*i + 2 < size) {
-			if(array[i] > array[2*i + 2]) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-void isMinHeap(int array[], int size) {
-	cout << "The given array ";
-	if(ArrayMinHeap(array, 0, size)) {
-		cout << "represents ";
-	}
-	else {
-		cout << "does not represent ";
-	}
-	cout << "a min heap." << endl;
-}
-void Heap(int array[], int size) {
-	if(!ArrayMinHeap(array, 0, size) && !ArrayMaxHeap(array, 0, size)) {
-		cout << "The given array does not represent a heap." << endl;
-	}
-	else {
-		isMinHeap(array, size);
-		isMaxHeap(array, size);
-	}
-}
 void Display(int array[], int size) {
 	for(int i = 0; i < size ; i++) {
 		cout << array[i] << " ";

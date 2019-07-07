@@ -84,14 +84,14 @@ class LinkedList {
 			return current;
 		}
 	}
-        node *reversedisplay(node *current) { //function to display nodes in list in reverse
+        void *reversedisplay(node *current) { //function to display nodes in list in reverse
         	if(current == NULL) {
-        		return current;
+        		return;
         	}
         	reversedisplay(current -> next);
         	cout << current -> data << " -> ";
         }
-        void *reverse() {
+        void reverse() {
         	reversedisplay(head);
         	cout << "NULL" << endl;
         }

@@ -189,18 +189,21 @@ class QueueLL {
         	front = NULL;
         	end = NULL;
         }
-        void enqueue(int value) {
+        int enqueue(int value) {
         	L2.insertathead(value);
         	front = L2.head;
         	end = L2.gettail();
+        	return value;
         }
-        void dequeue() {
+        int dequeue() {
         	if(empty()) {
         		cout << "queue underflow, nothing to dequeue" << endl;
         	}
         	else { 
+        		int Data = end -> data;
         		L2.deleteatend();
         		end = L2.gettail();
+        		return Data;
         	}
         }
         int size() {
@@ -261,6 +264,7 @@ class QueueS {
 				int data = S.pop();
 				dequeue();
 				S.push(data);
+				end = S.L1.gettail();
 			}
 		}
 	}
@@ -278,6 +282,43 @@ class QueueS {
 		S.display();
 	}
 };
+class StackQ {
+	public:
+	node *top;
+	QueueLL Q;
+	StackQ() {
+		top = NULL;
+	}
+	void push(int value) {
+		int s = Q.size();
+		Q.enqueue(value);
+		for(int i = 0; i < s; i++) {
+			Q.enqueue(Q.end -> data);
+			Q.dequeue();
+		}
+		top = Q.front;
+	}
+	void pop() {
+		if(Q.empty()) {
+			cout << "stack underflow, nothing to pop" << endl;
+			return;
+		}
+		Q.dequeue();
+	}
+	int size() {
+		return Q.size();
+	}
+	bool empty() {
+		return Q.empty();
+	}
+	void display() {
+		if(Q.empty()) {
+			cout << "empty stack" << endl;
+			return;
+		}
+		Q.display();
+	}
+};
 int main() {
 	StackLL S;
 	/*TEST CASE
@@ -290,7 +331,6 @@ int main() {
 		S.push(i);
 		S.display();
 	}
-	S.display();
 	for(int i = 0; i < 6; i++) {
 		S.pop();
 		S.display();
@@ -322,5 +362,14 @@ int main() {
 	QS.display();
 	QS.dequeue();
 	QS.display();
+	StackQ SQ;
+	for(int i = 1; i < 6; i++) {
+		SQ.push(i);
+		SQ.display();
+	}
+	for(int i = 0; i < 6; i++) {
+		SQ.pop();
+		SQ.display();
+	}
 	return 0;
 }

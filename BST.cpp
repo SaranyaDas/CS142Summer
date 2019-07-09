@@ -96,8 +96,7 @@ class BinarySearchTree {
 			if((temp -> left) && (temp -> right)) {
 				child = find_min(temp -> right);
 				temp -> data = child -> data;
-				child -> parent -> left = NULL;
-				delete child;
+				Delete(child -> data);
 			}
 			else {
 				if(temp -> left) {
@@ -119,8 +118,7 @@ class BinarySearchTree {
 				}
 				delete temp;	
 			}
-		}
-				
+		}	
 	}
 	void inorder(node *current) {
 		if(current == NULL) {
@@ -245,120 +243,6 @@ class BinarySearchTree {
 		}
 		cout << endl;
 	}
-	node *RemoveInsideRange(node *current, int low, int high) {
-		if(!current) {
-			return NULL;
-		}
-		current -> left = RemoveInsideRange(current -> left, low, high);
-		current -> right = RemoveInsideRange(current -> right, low, high);
-		if(current -> data >= low && current -> data <= high) { 
-       			delete current;
-       			return NULL;
-       		}
-		return current;
-	}
-	void removeinsiderange(int low, int high) {
-		if(low <= high) {
-			RemoveInsideRange(root, low, high);
-		}
-		else {
-			RemoveInsideRange(root, high, low);
-		}
-	}
-	node *RemoveOutsideRange(node *current, int low, int high) {
-		if(!current) {
-			return NULL;
-		}
-		current -> left = RemoveOutsideRange(current -> left, low, high);
-		current -> right = RemoveOutsideRange(current -> right, low, high);
-		if(current -> data < low) { 
-       			node *child = current -> right;
-       			delete current;
-       			return child;
-       		}
-       		if(current -> data > high) {
-       			node *child = current -> left;
-       			delete current;
-       			return child;
-       		}
-		return current;
-	}
-	void removeoutsiderange(int low, int high) {
-		if(low <= high) {
-			RemoveOutsideRange(root, low, high);
-		}
-		else {
-			RemoveOutsideRange(root, high, low);
-		}
-	}
-	node *deleteleaves(node *current) {
-		if(!current) {
-			return NULL;
-		}
-		if(!(current -> left) && !(current -> right)) {
-			delete current;
-			return NULL;
-		}
-		current -> left = deleteleaves(current -> left);
-		current -> right = deleteleaves(current -> right);
-		return current;
-	}
-	void deleteleaf() {
-		deleteleaves(root);
-	}
-	int RootDistance(node *current, int value) {
-		if(!current) {
-			return 0;
-		}
-		else {
-			if(current -> data > value) {
-				return 1 + RootDistance(current -> left, value);
-			}
-			else {
-				return 1 + RootDistance(current -> right, value);
-			}
-		}
-	}
-	void rootdistance(int value) {
-		cout << "Distance of " << value << " from root: " << RootDistance(root, value) << endl;
-	}
-	int NodeDistance(node *current, int a, int b) {
-		if(!current) {
-			return 0;
-		}
-		if(current -> data > a && current -> data > b){
-			return NodeDistance(current -> left, a, b);
-		}
-		if(current -> data < a && current -> data < b) {
-			return NodeDistance(root -> right, a, b);
-		}
-		if(current -> data >= a && current -> data <= b) {
-			return RootDistance(current, a) + RootDistance(current, b);
-		}
-	}
-	void nodedistance(int a, int b) {
-		cout << "Distance between " << a << " and " << b << ": " << NodeDistance(root, a, b) << endl;
-	}
-	bool CountSubtrees(node *current, int low, int high, int countS) {
-		if(!current) {
-			return true;
-		}
-		bool left = CountSubtrees(current -> left, low, high, countS);
-		bool right = CountSubtrees(current -> right, low, high, countS);
-		if(left && right && current -> data >= low && current -> data <= high) {
-			++countS;
-			return true;
-		}
-		return false;
-	}
-	int countsubtrees(int low, int high) {
-		int countS = 0;
-		CountSubtrees(root, low, high, countS);
-		return countS;
-	}
-	void subtrees(int low, int high) {
-		cout << "Number of subtrees between " << low << " and " << high << ": " << countsubtrees(low, high) << endl;
-	}
 	void print2DUtil(node *current, int spaces) {
 		if(current == NULL) {
 			return;
@@ -387,9 +271,11 @@ int main() {
 	BST.insert(8);
 	BST.insert(48);
 	BST.insert(463);
+	BST.insert(6);
 	BST.insert(7);
 	BST.insert(34);
 	BST.insert(100);
+	BST.insert(101);
 	BST.indisplay();
 	BST.count();
 	BST.height();
@@ -410,20 +296,6 @@ int main() {
 	BST.print2D();
 	BST.rangecount(234, 34);
 	BST.printrange(500, 34);
-	BST.removeinsiderange(1, 7);
 	BST.print2D();
-	BST.deleteleaf();
-	BST.print2D();
-	BST.removeoutsiderange(30, 100);
-	BST.print2D();
-	BST.Heap();
-	BinarySearchTree Tree1;
-	Tree1.print2D();
-	Tree1.Heap();
-	BinarySearchTree Tree2;
-	Tree2.insert(6);
-	Tree2.insert(3);
-	Tree2.print2D();
-	Tree2.Heap();
 	return 0;
 }

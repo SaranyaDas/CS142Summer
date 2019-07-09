@@ -80,8 +80,7 @@ class BinarySearchTree {
 			if(temp -> left != NULL && temp -> right != NULL) { //case 4.1: node to be deleted has two children
 				child = find_min(temp -> right); //node with minimum data (only slightly bigger than temp node's) in temp's right subtree becomes child
 				temp -> data = child -> data; //child node's data becomes temp's data
-				child -> parent -> left = NULL;
-				delete child;
+				Delete(child -> data);
 			}
 			else { //case 4.2: node to be deleted has one child
 				if(temp -> left != NULL) { //case 4.2.1: node to be deleted has only left child
